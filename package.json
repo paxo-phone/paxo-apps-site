@@ -24,6 +24,9 @@
 		"vite": "^5.4.11"
 	},
 	"dependencies": {
-		"@prisma/client": "6.2.1"
+		"@oslojs/crypto": "^1.0.1",
+		"@oslojs/encoding": "^1.1.0",
+		"@prisma/client": "6.2.1",
+		"oslo": "^1.2.1"
 	}
 }

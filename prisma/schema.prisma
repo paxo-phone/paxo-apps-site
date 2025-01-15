@@ -8,17 +8,24 @@ datasource db {
 }
 
 model User {
-  id        Int     @id @default(autoincrement())
-  email     String  @unique
-  username  String
-  sessions Session[]
+  id                   Int                    @id @default(autoincrement())
+  email                String                 @unique
+  username             String                 @unique
+  sessions             Session[]
+  passwordAuthStrategy PasswordAuthStrategy?
 }
-
 
 model Session {
   id        String   @id
   userId    Int
   expiresAt DateTime
 
-  user      User     @relation(references: [id], fields: [userId], onDelete: Cascade)
+  user User @relation(references: [id], fields: [userId], onDelete: Cascade)
+}
+
+model PasswordAuthStrategy {
+  id           Int    @id @default(autoincrement())
+  userId       Int    @unique
+  user         User   @relation(references: [id], fields: [userId], onDelete: Cascade)
+  passwordHash String
 }
