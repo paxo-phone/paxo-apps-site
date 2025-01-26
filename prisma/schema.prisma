@@ -11,8 +11,10 @@ model User {
   id                   Int                    @id @default(autoincrement())
   email                String                 @unique
   username             String                 @unique
+
   sessions             Session[]
   passwordAuthStrategy PasswordAuthStrategy?
+  apps                 App[]
 }
 
 model Session {
@@ -28,4 +30,36 @@ model PasswordAuthStrategy {
   userId       Int    @unique
   user         User   @relation(references: [id], fields: [userId], onDelete: Cascade)
   passwordHash String
+}
+
+model App {
+  id        Int     @id @default(autoincrement())
+  name      String
+  shortDesc String
+  imageUrl  String
+  extUrl    String?
+  repoUrl   String
+  downloads Int     @default(0)
+  category  Int
+
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+
+  userId    Int
+  user      User    @relation(references: [id], fields: [userId], onDelete: Cascade)
+
+  releases  Release[]
+}
+
+model Release {
+  id            Int     @id @default(autoincrement())
+  name          String
+  changelogUrl  String
+  downloadUrl   String
+  sourceUrl     String
+
+  createdAt DateTime  @default(now())
+
+  appId     Int
+  app       App    @relation(references: [id], fields: [appId], onDelete: Cascade)
 }

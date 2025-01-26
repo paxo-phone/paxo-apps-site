@@ -6,10 +6,10 @@
     const isMarketplace = $derived(!isFileManager && !isDashboard);
 </script>
 
-<div class="flex items-center justify-between py-5 px-10">
-    <div class="flex items-center space-x-6">
+<div class="flex items-center justify-between py-5 pr-8 pl-4">
+    <div class="flex items-center space-x-4">
         <img src="img/logo.png" class="size-16" alt="The Paxo Logo" />
-        <span class="text-3xl">
+        <span class="text-2xl">
             {#if isMarketplace}
                 Marketplace
             {:else if isFileManager}
