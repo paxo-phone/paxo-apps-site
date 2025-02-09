@@ -33,14 +33,15 @@ model PasswordAuthStrategy {
 }
 
 model App {
-  id        Int     @id @default(autoincrement())
-  name      String
-  shortDesc String
-  imageUrl  String
-  extUrl    String?
-  repoUrl   String
-  downloads Int     @default(0)
-  category  Int
+  id            Int     @id @default(autoincrement())
+  name          String
+  shortDesc     String
+  imageUrl      String
+  extUrl        String?
+  repoUrl       String
+  downloads     Int     @default(0)
+  category      Int
+  underRevision Boolean @default(false)
 
   createdAt DateTime  @default(now())
   updatedAt DateTime  @updatedAt
@@ -54,9 +55,10 @@ model App {
 model Release {
   id            Int     @id @default(autoincrement())
   name          String
-  changelogUrl  String
+  changelogUrl  String?
   downloadUrl   String
   sourceUrl     String
+  underRevision Boolean @default(false)
 
   createdAt DateTime  @default(now())
 

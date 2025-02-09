@@ -2,6 +2,28 @@
 @import 'tailwindcss/components';
 @import 'tailwindcss/utilities';
 
-body {
-    background-color: whitesmoke;
+
+.btn {
+    padding: 8px 16px;
+    border-radius: 6px;
+    font-size: larger;
+}
+
+.primary {
+    background-color: #3aba99;
+    border: #3aba99 solid 1px;
+    margin: 1px;
+    color: white;
+}
+
+.primary:hover {
+    border-width: 2px;
+    margin: 0px;
+    transition: all 10ms;
+}
+
+.primary:active {
+    border-width: 0px;
+    margin: 2px;
+    transition: all 10ms;
 }

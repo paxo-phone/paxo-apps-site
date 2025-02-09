@@ -13,11 +13,11 @@ async function main() {
     for (let a = 0; a < 6; a++) {
         for (let b = 0; b < 10; b++) {
 
-            await prisma.app.create({
+            const app = await prisma.app.create({
                 data: {
                     name: `App ${b}`,
                     shortDesc: `This app is super cool and you should use it.`,
-                    imageUrl: 'img/logo.png',
+                    imageUrl: '/img/logo.png',
                     repoUrl: 'https://github.com/paxo-phone/paxo-site',
                     extUrl: `https://github.com/paxo-phone/paxo-site/pulls/${b}`,
                     category: a,
@@ -25,6 +25,17 @@ async function main() {
                     downloads: Math.floor(Math.random() * 1000),
                 }
             })
+
+            for (let c = 0; c < 3; c++) {
+                await prisma.release.create({
+                    data: {
+                        name: `1.${c}`,
+                        downloadUrl: 'https://codeload.github.com/paxo-phone/paxo-site/zip/refs/heads/main',
+                        sourceUrl: 'https://github.com/paxo-phone/paxo-site/tree/main',
+                        appId: app.id
+                    }
+                })
+            }
 
         }
     }
