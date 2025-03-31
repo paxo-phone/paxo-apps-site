@@ -6,7 +6,11 @@ export function validateUsername(username: string): boolean {
 
 export function validatePassword(password: string): boolean {
     return validator.isStrongPassword(password, {
-        minLength: 8
+        minLength: 8,
+        minLowercase: 0,
+        minUppercase: 0,
+        minNumbers: 0,
+        minSymbols: 0,
     });
 }
 

@@ -1,4 +1,5 @@
 <script lang="ts">
+    import FlashAlert from "$lib/components/FlashAlert.svelte";
     import type { PageData } from "./$types";
 
     let { data }: { data: PageData } = $props();
@@ -7,7 +8,7 @@
 <div class="my-4 mx-8">
     <!-- Do not render page if an error occured -->
     {#if data.error}
-        <div class="alert error">{data.error.message}</div>
+        <FlashAlert type="error" message={data.error.message} />
     {:else}
         <div class="flex flex-row justify-between items-center mb-10">
             <div class="flex flex-row items-center space-x-4 rounded-lg">
@@ -40,13 +41,15 @@
                 </div>
             </div>
             <div class="mr-6">
-                <button class="btn primary">Download</button>
+                <a href={data.props.app.releases[0].downloadUrl}>
+                    <button class="btn-big primary">Download</button>
+                </a>
             </div>
         </div>
 
         <h1 class="text-3xl font-medium mb-4">Releases</h1>
 
-        <table class="releases">
+        <table class="table">
             <thead>
                 <tr>
                     <th class="w-full">Name</th>
@@ -88,19 +91,3 @@
         </table>
     {/if}
 </div>
-
-<style>
-    .releases {
-        width: 100%;
-    }
-
-    .releases td,
-    .releases th {
-        border: 1px solid #e5e7eb;
-        padding: 0.5rem 1rem;
-    }
-
-    .releases th {
-        text-align: start;
-    }
-</style>

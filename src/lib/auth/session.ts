@@ -77,21 +77,18 @@ async function invalidateSession(token: string) {
 }
 
 // This function returns the authenticated user based on the session token stored in the cookie.
-// If the token is not found or the session is invalid, it throws an error.
-//
-// This function is meant to be used to check if the user is authenticated before accessing protected routes,
-// as a triggered error will cause a redirection to the error page.
+// If the token is not found or the session is invalid, it returns null.
 
-async function getLoggedUser(cookieManager: Cookies): Promise<User> {
+async function getLoggedUser(cookieManager: Cookies): Promise<User | null> {
     const token = cookieManager.get("token");
 
     if (!token) {
-        throw new Error("User is not authenticated");
+        return null;
     }
 
     const result = await validateSessionToken(token);
     if (!result.user) {
-        throw new Error("Invalid session");
+        return null;
     }
 
     return result.user;
@@ -117,10 +114,8 @@ async function logout(cookieManager: Cookies) {
 
     await invalidateSession(token);
 
-    cookieManager.set("token", "", {
+    cookieManager.delete("token", {
         httpOnly: true,
-        maxAge: 0,
-        sameSite: "lax",
         path: "/"
     });
 }
